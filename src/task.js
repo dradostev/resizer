@@ -1,9 +1,9 @@
-module.exports = (step, options, execute, name) => {
-  step.state = `running:${name}`;
+module.exports = (task, options, execute, name) => {
+  task.state = `running:${name}`;
 
-  if (step.onStart) {
-    step.onStart(step, step.state);
+  if (task.onStart) {
+    task.onStart(task, task.state);
   }
 
-  return execute(step, options);
+  return execute(task, options);
 };
