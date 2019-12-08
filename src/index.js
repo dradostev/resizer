@@ -12,7 +12,11 @@ app.get("/health", (request, response) => {
 
 app.post("/run", (request, response) => {
   const res = handler(
-    { uid: "hc78932kjlfnkjds" },
+    {
+      uid: "hc78932kjlfnkjds",
+      url: "https://upsaleslab-users.s3.eu-central-1.amazonaws.com/Nature.zip",
+      path: "Nature.zip"
+    },
     { skipCleanUp: true, logger: console }
   )
     .then(job => {
