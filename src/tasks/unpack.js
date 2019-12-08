@@ -1,3 +1,10 @@
 module.exports = (task, options) => {
-  options.logger.log(`[${task.uid}]: unpacking.`);
+  return new Promise((resolve, reject) => {
+    try {
+      options.logger.log(`[${task.uid}]: unpacking.`);
+      resolve(task);
+    } catch (err) {
+      reject(err);
+    }
+  });
 };

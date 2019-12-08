@@ -1,3 +1,10 @@
 module.exports = (task, options) => {
-  options.logger.log(`[${task.uid}]: downloading archive.`);
+  return new Promise((resolve, reject) => {
+    try {
+      options.logger.log(`[${task.uid}]: downloading archive.`);
+      resolve(task);
+    } catch (err) {
+      reject(err);
+    }
+  });
 };
