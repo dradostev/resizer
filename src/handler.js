@@ -9,12 +9,12 @@ const cleanup = require("./tasks/cleanup");
 
 const handler = (task, options) => {
   return Promise.resolve(task)
-    .then(step => run(step, options, download, "download"))
-    .then(step => run(step, options, unpack, "unpack"))
-    .then(step => run(step, options, resize, "resize"))
-    .then(step => run(step, options, pack, "pack"))
-    .then(step => run(step, options, upload, "upload"))
-    .then(step => run(step, options, cleanup, "cleanup"));
+    .then(task => run(task, options, download, "download"))
+    .then(task => run(task, options, unpack, "unpack"))
+    .then(task => run(task, options, resize, "resize"))
+    .then(task => run(task, options, pack, "pack"))
+    .then(task => run(task, options, upload, "upload"))
+    .then(task => run(task, options, cleanup, "cleanup"));
 };
 
 module.exports = { handler };
