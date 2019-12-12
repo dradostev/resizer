@@ -1,4 +1,3 @@
-const fs = require('fs')
 const path = require('path')
 const glob = require('glob')
 const AdmZip = require('adm-zip')
@@ -11,7 +10,7 @@ module.exports = (task, options) => {
       glob(path.join(__dirname, '/../downloads/*.zip'), null, (err, files) => {
         if (err) {
           options.logger.error(err)
-          return
+          throw err
         }
         files.forEach(file => {
           const zip = new AdmZip(file)
