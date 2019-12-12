@@ -9,6 +9,8 @@
   "author": "matterai",
   "license": "ISC",
   "dependencies": {
+    "adm-zip": "^0.4.13",
+    "glob": "^7.1.6",
     "node-fetch": "^2.6.0",
     "path": "^0.12.7",
     "uniqid": "^5.2.0",
