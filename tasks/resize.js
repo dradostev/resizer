@@ -8,7 +8,7 @@ module.exports = (task, options) => {
       options.logger.log(`[${task.uid}]: resizing objects.`)
 
       setTimeout(() => {
-        glob(path.join(__dirname, '/../downloads/+(*.png|*.jpg|*.jpeg)'), null, (err, files) => {
+        glob(path.join(__dirname, '/../downloads/+(*.png|*.jpg|*.jpeg|*.jpe|*.wepb|*.gif)'), null, (err, files) => {
           if (err) throw err
           files.forEach(file => {
             const fileName = file.substring(file.lastIndexOf('/') + 1)

@@ -6,9 +6,12 @@ module.exports = (task, options) => {
     try {
       options.logger.log(`[${task.uid}]: cleaning up.`)
 
-      const dir = path.join(__dirname, '/../downloads')
+      const dirs = [
+        path.join(__dirname, '/../downloads'),
+        path.join(__dirname, '/../resized')
+      ]
 
-      fs.readdir(dir, (err, files) => {
+      dirs.forEach(dir => fs.readdir(dir, (err, files) => {
         if (err) throw err
         files.forEach(file => {
           if (file !== '.gitignore') {
@@ -17,7 +20,7 @@ module.exports = (task, options) => {
             })
           }
         })
-      })
+      }))
 
       resolve(task)
     } catch (err) {
