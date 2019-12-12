@@ -1,7 +1,10 @@
 const app = require("express")();
 const bodyParser = require("body-parser");
+const uniqid = require("uniqid");
 
-const { handler } = require("./handler");
+const {
+  handler
+} = require("./handler");
 
 app.use(bodyParser.json());
 
@@ -11,14 +14,22 @@ app.get("/health", (request, response) => {
 });
 
 app.post("/run", (request, response) => {
-  const res = handler(
-    {
-      uid: "hc78932kjlfnkjds",
-      url: "https://upsaleslab-users.s3.eu-central-1.amazonaws.com/Nature.zip",
-      path: "Nature.zip"
-    },
-    { skipCleanUp: true, logger: console }
-  )
+
+  const task = {
+    uid: uniqid(),
+    assets: [{
+      src: "https://upsaleslab-users.s3.eu-central-1.amazonaws.com/Nature.zip",
+      dest: "Nature.zip",
+      type: "zip"
+    }]
+  }
+
+  const options = {
+    logger: console,
+    skipCleanUp: false
+  }
+
+  const res = handler(task, options)
     .then(job => {
       console.log("> successfully finished.");
     })
