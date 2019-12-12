@@ -9,10 +9,7 @@ module.exports = (task, options) => {
       const dir = path.join(__dirname, '/../downloads')
 
       fs.readdir(dir, (err, files) => {
-        if (err) {
-          options.logger.error(err)
-          throw err
-        }
+        if (err) throw err
         files.forEach(file => {
           if (file !== '.gitignore') {
             fs.unlink(path.join(dir, file), err => {

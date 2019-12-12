@@ -14,5 +14,6 @@ module.exports = (task, options) => {
     .then(task => run(task, options, resize, 'resize'))
     .then(task => run(task, options, pack, 'pack'))
     .then(task => run(task, options, upload, 'upload'))
-    .then(task => run(task, options, cleanup, 'cleanup'))
+    //.then(task => run(task, options, cleanup, 'cleanup'))
+    .catch(err => options.logger.error(err))
 }

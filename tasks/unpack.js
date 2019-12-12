@@ -8,15 +8,14 @@ module.exports = (task, options) => {
       options.logger.log(`[${task.uid}]: unpacking.`)
 
       glob(path.join(__dirname, '/../downloads/*.zip'), null, (err, files) => {
-        if (err) {
-          options.logger.error(err)
-          throw err
-        }
+        if (err) throw err
         files.forEach(file => {
           const zip = new AdmZip(file)
-          zip.extractAllTo(path.join(__dirname, '/../downloads/'))
+          zip.extractAllToAsync(path.join(__dirname, '/../downloads/'))
         })
       })
+
+      options.logger.log(`[${task.uid}]: unpacked.`)
 
       resolve(task)
     } catch (err) {

@@ -33,5 +33,6 @@ module.exports = (task, options) => {
   options.logger.log(`[${task.uid}]: downloading started.`)
 
   const promises = task.assets.map(asset => download(task, options, asset))
+  options.logger.log(`[${task.uid}]: downloaded all.`)
   return Promise.all(promises).then(_ => task)
 }

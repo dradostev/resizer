@@ -1,14 +1,15 @@
 const uniqid = require("uniqid");
-const argv = require('yargs').array('images').parse();
+const argv = require('yargs')
+  .array('images')
+  .boolean('custom')
+  .parse();
 const handler = require("./handler");
 
 const task = {
   uid: uniqid(),
   assets: [],
-  params: {
-    by: argv.by,
-    kind: argv.kind
-  }
+  resize: argv.resize,
+  custom: argv.custom
 }
 
 argv.images.forEach(img => task.assets.push({ src: img }))
