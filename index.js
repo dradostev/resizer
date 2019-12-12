@@ -2,15 +2,16 @@ const uniqid = require("uniqid");
 const argv = require('yargs').array('images').parse();
 const handler = require("./handler");
 
-
 const task = {
   uid: uniqid(),
-  assets: [{
-    src: "https://upsaleslab-users.s3.eu-central-1.amazonaws.com/Nature.zip",
-    dest: "./downloads/Nature.zip",
-    type: "zip"
-  }]
+  assets: [],
+  params: {
+    by: argv.by,
+    kind: argv.kind
+  }
 }
+
+argv.images.forEach(img => task.assets.push({ src: img }))
 
 const options = {
   logger: console,
