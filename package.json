@@ -10,7 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "adm-zip": "^0.4.13",
+    "archiver": "^3.1.1",
     "glob": "^7.1.6",
+    "jszip": "^3.2.2",
     "node-fetch": "^2.6.0",
     "path": "^0.12.7",
     "sharp": "^0.23.4",

@@ -1,9 +1,9 @@
-const uniqid = require("uniqid");
+const uniqid = require('uniqid')
 const argv = require('yargs')
   .array('images')
   .boolean('custom')
-  .parse();
-const handler = require("./handler");
+  .parse()
+const handler = require('./handler')
 
 const task = {
   uid: uniqid(),
@@ -19,11 +19,11 @@ const options = {
   skipCleanUp: false
 }
 
-const res = handler(task, options)
+handler(task, options)
   .then(job => {
-    console.log("> successfully finished.");
+    console.log('> successfully finished.')
   })
   .catch(err => {
-    console.error("> failed.");
-    console.error(err);
-  });
+    console.error('> failed.')
+    console.error(err)
+  })

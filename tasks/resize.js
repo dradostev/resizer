@@ -4,37 +4,33 @@ const sharp = require('sharp')
 
 module.exports = (task, options) => {
   return new Promise((resolve, reject) => {
-    try {
-      options.logger.log(`[${task.uid}]: resizing objects.`)
+    options.logger.log(`[${task.uid}]: resizing objects.`)
 
-      setTimeout(() => {
-        glob(path.join(__dirname, '/../downloads/+(*.png|*.jpg|*.jpeg|*.jpe|*.wepb|*.gif)'), null, (err, files) => {
-          if (err) throw err
-          files.forEach(file => {
-            const fileName = file.substring(file.lastIndexOf('/') + 1)
-            if (task.custom) {
-              return sharp(file)
-                .resize(task.resize)
+    glob(path.join(__dirname, '/../downloads/+(*.png|*.jpg|*.jpeg|*.jpe|*.wepb|*.gif)'), null, (err, files) => {
+      if (err) reject(err)
+      files.forEach(f => {
+        const fileName = f.substring(f.lastIndexOf('/') + 1)
+        const file = sharp(f)
+
+        if (task.custom) {
+          file.resize(task.resize)
+        } else {
+          file
+            .metadata()
+            .then(meta => {
+              return sharp(f)
+                .resize(Math.round(meta.width * task.resize / 100))
                 .toFile(path.join(__dirname, '/../resized/', fileName))
-            } else {
-              return sharp(file)
-                .metadata()
-                .then(meta => {
-                  return sharp(file)
-                    .resize(Math.round(meta.width * task.resize / 100))
-                    .toFile(path.join(__dirname, '/../resized/', fileName))
-                })
-                .catch(err => options.logger.error(err))
-            }
-          })
-        })
-      }, 1000)
+            })
+        }
+
+        file
+          .toFile(path.join(__dirname, '/../resized/', fileName))
+          .then(() => resolve(task))
+          .catch(err => reject(err))
+      })
 
       options.logger.log(`[${task.uid}]: resized.`)
-
-      resolve(task)
-    } catch (err) {
-      reject(err)
-    }
+    })
   })
 }
